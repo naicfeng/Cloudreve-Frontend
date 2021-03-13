@@ -167,6 +167,7 @@ function build(previousFileSizes) {
         }
         return reject(new Error(messages.errors.join('\n\n')));
       }
+/*
       if (
         process.env.CI &&
         (typeof process.env.CI !== 'string' ||
@@ -181,7 +182,7 @@ function build(previousFileSizes) {
         );
         return reject(new Error(messages.warnings.join('\n\n')));
       }
-
+*/
       return resolve({
         stats,
         previousFileSizes,
