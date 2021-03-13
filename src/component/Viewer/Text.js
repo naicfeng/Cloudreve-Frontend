@@ -126,7 +126,7 @@ export default function TextViewer() {
 
     const addImg = async ($file) => {
         $vm.current.$img2Url($file.name, await toBase64($file));
-        console.log($file);
+//        console.log($file);
     };
 
     const classes = useStyles();

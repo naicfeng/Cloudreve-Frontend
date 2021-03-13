@@ -1,4 +1,4 @@
-var MXI_DEBUG = true;
+var MXI_DEBUG = false;
 /**
  * mOxie - multi-runtime File API & XMLHttpRequest L2 Polyfill
  * v1.5.3
@@ -7299,7 +7299,7 @@ var MXI_DEBUG = true;
                     xhr.bind("RuntimeError", function (e, err) {
                         self.trigger("RuntimeError", err);
                     });
-
+                    xhr.withCredentials = true;
                     xhr.send(null, options);
                 }
             }
@@ -8574,6 +8574,7 @@ Defines constructor for HTML5 runtime.
 
                         // send ...
                         if (!mustSendAsBinary) {
+                            _xhr.withCredentials = true;
                             _xhr.send(data);
                         } else {
                             if (_xhr.sendAsBinary) {
@@ -8587,6 +8588,7 @@ Defines constructor for HTML5 runtime.
                                     for (var i = 0; i < data.length; i++) {
                                         ui8a[i] = data.charCodeAt(i) & 0xff;
                                     }
+                                    _xhr.withCredentials = true;
                                     _xhr.send(ui8a.buffer);
                                 })();
                             }

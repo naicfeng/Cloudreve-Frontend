@@ -201,7 +201,7 @@ class ProfileCompoment extends Component {
                                 <Avatar
                                     className={classes.avatarContainer}
                                     src={
-                                        "/api/v3/user/avatar/" +
+                                        "https://disk-api.cuojue.org/api/v3/user/avatar/" +
                                         this.state.user.id +
                                         "/l"
                                     }

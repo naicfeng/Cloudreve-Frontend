@@ -133,7 +133,7 @@ export default function Authn(props) {
                 return;
             })
             .catch((error) => {
-                console.log(error);
+//                console.log(error);
                 ToggleSnackbar("top", "right", error.message, "error");
             });
     };

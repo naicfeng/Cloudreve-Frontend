@@ -1,7 +1,7 @@
 import axios from "axios";
 import Auth from "./Auth";
 
-export const baseURL = "/api/v3";
+export const baseURL = "https://disk-api.cuojue.org/api/v3";
 
 export const getBaseURL = () => {
     return baseURL;

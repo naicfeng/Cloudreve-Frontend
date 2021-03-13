@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
-import * as serviceWorker from "./serviceWorker";
+//import * as serviceWorker from "./serviceWorker";
 import { Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
@@ -18,7 +18,7 @@ if (window.location.hash !== "") {
     window.location.href = window.location.hash.split("#")[1];
 }
 
-serviceWorker.register();
+//serviceWorker.register();
 export const history = createBrowserHistory();
 let reduxEnhance = applyMiddleware(routerMiddleware(history), thunk);
 if (

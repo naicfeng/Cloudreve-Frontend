@@ -185,7 +185,7 @@ export default function OneDriveGuide(props) {
                         OptionsSerialized: {
                             ...policy.OptionsSerialized,
                             od_redirect: new URL(
-                                "/api/v3/callback/onedrive/auth",
+                                "https://disk-api.cuojue.org/api/v3/callback/onedrive/auth",
                                 response.data.siteURL
                             ).toString(),
                         },

@@ -184,7 +184,7 @@ function LoginForm() {
         API.get("/user/authn/" + email)
             .then((response) => {
                 const credentialRequestOptions = response.data;
-                console.log(credentialRequestOptions);
+//                console.log(credentialRequestOptions);
                 credentialRequestOptions.publicKey.challenge = bufferDecode(
                     credentialRequestOptions.publicKey.challenge
                 );
@@ -224,7 +224,7 @@ function LoginForm() {
                 afterLogin(response.data);
             })
             .catch((error) => {
-                console.log(error);
+//                console.log(error);
                 ToggleSnackbar("top", "right", error.message, "warning");
             })
             .then(() => {
@@ -425,14 +425,6 @@ function LoginForm() {
                             </form>
                         )}
                         <Divider />
-                        <div className={classes.link}>
-                            <div>
-                                <Link href={"/forget"}>忘记密码</Link>
-                            </div>
-                            <div>
-                                <Link href={"/signup"}>注册账号</Link>
-                            </div>
-                        </div>
 
                         <ICPFooter />
                     </Paper>

@@ -106,13 +106,13 @@ class UserInfoCompoment extends Component {
                     <a onClick={this.showUserInfo} className={classes.avatar}>
                         {isLogin && (
                             <Avatar
-                                src={"/api/v3/user/avatar/" + user.id + "/l"}
+                                src={"https://disk-api.cuojue.org/api/v3/user/avatar/" + user.id + "/l"}
                                 className={classes.avatarImg}
                             />
                         )}
                         {!isLogin && (
                             <Avatar
-                                src={"/api/v3/user/avatar/0/l"}
+                                src={"https://disk-api.cuojue.org/api/v3/user/avatar/0/l"}
                                 className={classes.avatarImg}
                             />
                         )}

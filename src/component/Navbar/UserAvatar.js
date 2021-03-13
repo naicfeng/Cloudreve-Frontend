@@ -146,7 +146,7 @@ class UserAvatarCompoment extends Component {
                             {loginCheck && (
                                 <Avatar
                                     src={
-                                        "/api/v3/user/avatar/" + user.id + "/s"
+                                        "https://disk-api.cuojue.org/api/v3/user/avatar/" + user.id + "/s"
                                     }
                                     className={classes.avatar}
                                 />

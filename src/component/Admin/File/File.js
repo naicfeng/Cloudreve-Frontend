@@ -402,7 +402,7 @@ export default function File() {
                                             target={"_blank"}
                                             color="inherit"
                                             href={
-                                                "/api/v3/admin/file/preview/" +
+                                                "https://disk-api.cuojue.org/api/v3/admin/file/preview/" +
                                                 row.ID
                                             }
                                         >

@@ -131,7 +131,7 @@ class UploaderComponent extends Component {
                     },
                     // iOS不能多选？
                     multi_selection: true,
-                    uptoken_url: "/api/v3/file/upload/credential",
+                    uptoken_url: "https://disk-api.cuojue.org/api/v3/file/upload/credential",
                     uptoken: user.policy.saveType === "local" ? "token" : null,
                     domain: "s",
                     max_retries: 0,
@@ -153,11 +153,11 @@ class UploaderComponent extends Component {
                             if (file.length === 0) {
                                 return;
                             }
-                            console.log(
+/*                            console.log(
                                 "UploadComplete",
                                 file[0].status,
                                 file[0]
-                            );
+                            );*/
                             for (let i = 0; i < file.length; i++) {
                                 if (file[i].status === 5) {
                                     window.fileList["setComplete"](file[i]);

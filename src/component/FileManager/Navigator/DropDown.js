@@ -30,7 +30,7 @@ export default function DropDown(props) {
                 }
             }
         }
-        console.log(status);
+//        console.log(status);
     };
 
     return (

@@ -120,7 +120,7 @@ class FileList extends Component {
     }
 
     setComplete(file) {
-        console.log("setComplete");
+//        console.log("setComplete");
         const filesNow = [...this.state.files];
         const fileID = filesNow.findIndex((f) => {
             return f.id === file.id;

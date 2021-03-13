@@ -606,7 +606,7 @@ class UserSettingCompoment extends Component {
                                 <ListItemAvatar>
                                     <Avatar
                                         src={
-                                            "/api/v3/user/avatar/" +
+                                            "https://disk-api.cuojue.org/api/v3/user/avatar/" +
                                             user.id +
                                             "/l"
                                         }

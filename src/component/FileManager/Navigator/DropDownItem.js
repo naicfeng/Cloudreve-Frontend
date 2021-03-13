@@ -15,13 +15,13 @@ export default function DropDownItem(props) {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: "object",
         drop: () => {
-            console.log({
+/*            console.log({
                 folder: {
                     id: -1,
                     path: props.path,
                     name: props.folder === "/" ? "" : props.folder,
                 },
-            });
+            });*/
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),

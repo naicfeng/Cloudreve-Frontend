@@ -37,6 +37,7 @@ export default function SiteInformation() {
     const [options, setOptions] = useState({
         siteURL: "",
         siteName: "",
+        apiURL: "",
         siteTitle: "",
         siteDes: "",
         siteICPId: "",
@@ -164,6 +165,22 @@ export default function SiteInformation() {
                                 />
                                 <FormHelperText id="component-helper-text">
                                     非常重要，请确保与实际情况一致。使用云存储策略、支付平台时，请填入可以被外网访问的地址。
+                                </FormHelperText>
+                            </FormControl>
+                        </div>
+                        <div className={classes.form}>
+                            <FormControl fullWidth>
+                                <InputLabel htmlFor="component-helper">
+                                    ApiURL
+                                </InputLabel>
+                                <Input
+                                    type={"url"}
+                                    value={options.apiURL}
+                                    onChange={handleChange("apiURL")}
+                                    required
+                                />
+                                <FormHelperText id="component-helper-text">
+                                    非常重要，一般情况与站点URL一致，请填入可以被外网访问的地址。
                                 </FormHelperText>
                             </FormControl>
                         </div>

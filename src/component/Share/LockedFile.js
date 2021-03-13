@@ -84,7 +84,7 @@ class LockedFileCompoment extends Component {
                             <Avatar
                                 aria-label="Recipe"
                                 src={
-                                    "/api/v3/user/avatar/" +
+                                    "https://disk-api.cuojue.org/api/v3/user/avatar/" +
                                     this.props.share.creator.key +
                                     "/l"
                                 }

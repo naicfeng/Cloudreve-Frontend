@@ -302,14 +302,6 @@ function Register() {
                         </form>
 
                         <Divider />
-                        <div className={classes.link}>
-                            <div>
-                                <Link href={"/login"}>返回登录</Link>
-                            </div>
-                            <div>
-                                <Link href={"/forget"}>忘记密码</Link>
-                            </div>
-                        </div>
                     </Paper>
                 )}
                 {emailActive && (

@@ -125,10 +125,10 @@ function getCookieByString(cookieName) {
                 // http://stackoverflow.com/questions/5538972/console-log-apply-not-working-in-ie9
                 //var log = Function.prototype.bind.call(console.log, console);
                 //log.apply(console, args);
-                console.log(msg);
+                //console.log(msg); //offlog
             } else {
                 args.unshift(header);
-                console.log.apply(console, args);
+                //console.log.apply(console, args); //offlog
             }
             if (document.getElementById("qiniu-js-sdk-log")) {
                 document.getElementById("qiniu-js-sdk-log").innerHTML +=
@@ -727,6 +727,7 @@ function getCookieByString(cookieName) {
                         true
                     );
                     ajax.setRequestHeader("If-Modified-Since", "0");
+                    ajax.withCredentials = true;
                     ajax.send();
                     ajax.onload = function (e) {
                         if (ajax.status === 200) {

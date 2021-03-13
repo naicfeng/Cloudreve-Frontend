@@ -136,7 +136,7 @@ export default function SubActions({ isSmall, share, inherit }) {
                 >
                     <Avatar
                         style={{ height: 23, width: 23 }}
-                        src={"/api/v3/user/avatar/" + share.creator.key + "/s"}
+                        src={"https://disk-api.cuojue.org/api/v3/user/avatar/" + share.creator.key + "/s"}
                     />
                 </IconButton>
             )}

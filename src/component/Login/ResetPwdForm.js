@@ -196,9 +196,6 @@ class ResetPwdFormCompoment extends Component {
                         <div>
                             <Link href={"/Login"}>返回登录</Link>
                         </div>
-                        <div>
-                            <Link href={"/SignUp"}>注册账号</Link>
-                        </div>
                     </div>
                 </Paper>
             </div>

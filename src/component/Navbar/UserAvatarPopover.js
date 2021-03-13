@@ -139,14 +139,6 @@ class UserAvatarPopoverCompoment extends Component {
                             </ListItemIcon>
                             登录
                         </MenuItem>
-                        <MenuItem
-                            onClick={() => this.props.history.push("/signup")}
-                        >
-                            <ListItemIcon>
-                                <AccountPlus />
-                            </ListItemIcon>
-                            注册
-                        </MenuItem>
                     </div>
                 )}
                 {Auth.Check() && (
@@ -156,7 +148,7 @@ class UserAvatarPopoverCompoment extends Component {
                                 <Avatar
                                     className={classes.largeAvatar}
                                     src={
-                                        "/api/v3/user/avatar/" + user.id + "/l"
+                                        "https://disk-api.cuojue.org/api/v3/user/avatar/" + user.id + "/l"
                                     }
                                 />
                             </div>
