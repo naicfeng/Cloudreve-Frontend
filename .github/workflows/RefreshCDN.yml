@@ -1,0 +1,38 @@
+name: Core
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.event.head_commit.message, '[skip ci]') }}
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+        fetch-depth: 0
+    - name: setup nodejs...
+      uses: actions/setup-node@v1
+    - name: install...
+      run: |
+        npm install
+    - name: generate public files...
+      run: |
+        yarn build
+#    - name: Publish
+#      uses: selenehyun/gh-push@master
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+#        COMMIT_FILES: public/*
+#        REPO_FULLNAME: naicfeng/website
+#        BRANCH: master
+    - name: RefreshCDN
+      if: ${{ github.event_name != 'pull_request' && success() && github.ref == 'refs/heads/master' }}
+      env:
+        REF_TOKEN: ${{ secrets.REF_TOKEN }}
+      run: |
+        curl -v "https://service-3cbgqjop-1255592211.sh.apigw.tencentcs.com/release/RefreshCDN?secretKey=${REF_TOKEN}"
+

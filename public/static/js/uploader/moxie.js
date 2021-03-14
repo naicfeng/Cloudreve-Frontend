@@ -8574,7 +8574,6 @@ Defines constructor for HTML5 runtime.
 
                         // send ...
                         if (!mustSendAsBinary) {
-                            _xhr.withCredentials = true;
                             _xhr.send(data);
                         } else {
                             if (_xhr.sendAsBinary) {
