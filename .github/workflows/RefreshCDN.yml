@@ -31,6 +31,17 @@ jobs:
 #        COMMIT_FILES: public/*
 #        REPO_FULLNAME: naicfeng/website
 #        BRANCH: master
+    - name: Install coscmd
+      run: sudo pip install coscmd
+    - name: Configure coscmd
+      env:
+        SECRET_ID: ${{ secrets.SECRET_ID }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        BUCKET: ${{ secrets.BUCKET }}
+        REGION: ap-shanghai
+      run: coscmd config -a $SECRET_ID -s $SECRET_KEY -b $BUCKET -r $REGION
+    - name: Upload
+      run: coscmd upload -rs --delete -f ./build/ / --ignore "*.map,version.json,asset-manifest.json"
     - name: RefreshCDN
       if: ${{ github.event_name != 'pull_request' && success() && github.ref == 'refs/heads/master' }}
       env:

@@ -88,6 +88,10 @@ const steps = [
         optional: false,
     },
     {
+        title: "直链设置",
+        optional: false,
+    },
+    {
         title: "上传限制",
         optional: false,
     },
@@ -114,6 +118,11 @@ export default function OneDriveGuide(props) {
             ? props.policy.OptionsSerialized.od_proxy !== ""
             : false
     );
+    const [useSharePoint, setUseSharePoint] = useState(
+        props.policy && props.policy.OptionsSerialized.od_driver
+            ? props.policy.OptionsSerialized.od_driver !== ""
+            : false
+    );
     const [policy, setPolicy] = useState(
         props.policy
             ? props.policy
@@ -135,6 +144,7 @@ export default function OneDriveGuide(props) {
                       file_type: "",
                       od_redirect: "",
                       od_proxy: "",
+                      od_driver: "",
                   },
               }
     );
@@ -228,6 +238,10 @@ export default function OneDriveGuide(props) {
             policyCopy.OptionsSerialized.od_proxy = "";
         }
 
+        if (!useSharePoint) {
+            policyCopy.OptionsSerialized.od_driver = "";
+        }
+
         // 类型转换
         policyCopy.AutoRename = policyCopy.AutoRename === "true";
         policyCopy.IsOriginLinkEnable =
@@ -254,7 +268,7 @@ export default function OneDriveGuide(props) {
                     "存储策略已" + (props.policy ? "保存" : "添加"),
                     "success"
                 );
-                setActiveStep(3);
+                setActiveStep(4);
                 setPolicyID(response.data);
             })
             .catch((error) => {
@@ -274,11 +288,11 @@ export default function OneDriveGuide(props) {
                 onClose={() => setHttpsAlert(false)}
                 title={"警告"}
                 msg={
-                    "您必须启用 HTTPS 才能使用 OneDrive 存储策略；启用后同步更改 参数设置 - 站点信息 - 站点URL。"
+                    "您必须启用 HTTPS 才能使用 OneDrive/SharePoint 存储策略；启用后同步更改 参数设置 - 站点信息 - 站点URL。"
                 }
             />
             <Typography variant={"h6"}>
-                {props.policy ? "修改" : "添加"} OneDrive 存储策略
+                {props.policy ? "修改" : "添加"} OneDrive/SharePoint 存储策略
             </Typography>
             <Stepper activeStep={activeStep}>
                 {steps.map((label, index) => {
@@ -431,7 +445,7 @@ export default function OneDriveGuide(props) {
                         </div>
                         <div className={classes.subStepContent}>
                             <Typography variant={"body2"}>
-                                选择您的 OneDrive 账号类型：
+                                选择您的 Microsoft 365 账号类型：
                             </Typography>
                             <div className={classes.form}>
                                 <FormControl required component="fieldset">
@@ -468,6 +482,69 @@ export default function OneDriveGuide(props) {
                     <div className={classes.subStepContainer}>
                         <div className={classes.stepNumberContainer}>
                             <div className={classes.stepNumber}>7</div>
+                        </div>
+                        <div className={classes.subStepContent}>
+                            <Typography variant={"body2"}>
+                                是否将文件存放在 SharePoint 中？
+                            </Typography>
+                            <div className={classes.form}>
+                                <FormControl required component="fieldset">
+                                    <RadioGroup
+                                        required
+                                        value={useSharePoint.toString()}
+                                        onChange={(e) => {
+                                            setUseSharePoint(
+                                                e.target.value === "true"
+                                            );
+                                        }}
+                                        row
+                                    >
+                                        <FormControlLabel
+                                            value={"true"}
+                                            control={
+                                                <Radio color={"primary"} />
+                                            }
+                                            label="存到指定 SharePoint 中"
+                                        />
+                                        <FormControlLabel
+                                            value={"false"}
+                                            control={
+                                                <Radio color={"primary"} />
+                                            }
+                                            label="存到账号默认 OneDrive 驱动器中"
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+                            </div>
+                            <Collapse in={useSharePoint}>
+                                <div className={classes.form}>
+                                    <FormControl fullWidth>
+                                        <InputLabel htmlFor="component-helper">
+                                            SharePoint 站点地址
+                                        </InputLabel>
+                                        <Input
+                                            placeholder={
+                                                "https://example.sharepoint.com/sites/demo"
+                                            }
+                                            value={
+                                                policy.OptionsSerialized
+                                                    .od_driver
+                                            }
+                                            onChange={handleOptionChange(
+                                                "od_driver"
+                                            )}
+                                            required={useSharePoint}
+                                            label={"SharePoint 站点地址"}
+                                        />
+                                    </FormControl>
+                                </div>
+                            </Collapse>
+                        </div>
+                    </div>
+
+                    <div className={classes.subStepContainer}>
+                        <div className={classes.stepNumberContainer}>
+                            <div className={classes.stepNumber}>8</div>
                         </div>
                         <div className={classes.subStepContent}>
                             <Typography variant={"body2"}>
@@ -524,7 +601,7 @@ export default function OneDriveGuide(props) {
 
                     <div className={classes.subStepContainer}>
                         <div className={classes.stepNumberContainer}>
-                            <div className={classes.stepNumber}>8</div>
+                            <div className={classes.stepNumber}>9</div>
                         </div>
                         <div className={classes.subStepContent}>
                             <Typography variant={"body2"}>
@@ -691,6 +768,77 @@ export default function OneDriveGuide(props) {
             )}
 
             {activeStep === 2 && (
+                <form
+                    className={classes.stepContent}
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        setActiveStep(3);
+                    }}
+                >
+                    <div className={classes.subStepContainer}>
+                        <div className={classes.stepNumberContainer}>
+                            <div className={classes.stepNumber}>1</div>
+                        </div>
+                        <div className={classes.subStepContent}>
+                            <Typography variant={"body2"}>
+                                是否允许获取文件永久直链？
+                                <br />
+                                开启后，用户可以请求获得能直接访问到文件内容的直链，适用于图床应用或自用。
+                            </Typography>
+
+                            <div className={classes.form}>
+                                <FormControl required component="fieldset">
+                                    <RadioGroup
+                                        required
+                                        value={policy.IsOriginLinkEnable}
+                                        onChange={(e) => {
+                                            handleChange("IsOriginLinkEnable")(
+                                                e
+                                            );
+                                        }}
+                                        row
+                                    >
+                                        <FormControlLabel
+                                            value={"true"}
+                                            control={
+                                                <Radio color={"primary"} />
+                                            }
+                                            label="允许"
+                                        />
+                                        <FormControlLabel
+                                            value={"false"}
+                                            control={
+                                                <Radio color={"primary"} />
+                                            }
+                                            label="禁止"
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={classes.stepFooter}>
+                        <Button
+                            color={"default"}
+                            className={classes.button}
+                            onClick={() => setActiveStep(1)}
+                        >
+                            上一步
+                        </Button>{" "}
+                        <Button
+                            disabled={loading}
+                            type={"submit"}
+                            variant={"contained"}
+                            color={"primary"}
+                        >
+                            下一步
+                        </Button>
+                    </div>
+                </form>
+            )}
+
+            {activeStep === 3 && (
                 <form className={classes.stepContent} onSubmit={submitPolicy}>
                     <div className={classes.subStepContainer}>
                         <div className={classes.stepNumberContainer}>
@@ -866,7 +1014,7 @@ export default function OneDriveGuide(props) {
                         <Button
                             color={"default"}
                             className={classes.button}
-                            onClick={() => setActiveStep(1)}
+                            onClick={() => setActiveStep(2)}
                         >
                             上一步
                         </Button>{" "}
@@ -882,7 +1030,7 @@ export default function OneDriveGuide(props) {
                 </form>
             )}
 
-            {activeStep === 3 && (
+            {activeStep === 4 && (
                 <form className={classes.stepContent}>
                     <div className={classes.subStepContainer}>
                         <div className={classes.stepNumberContainer} />
